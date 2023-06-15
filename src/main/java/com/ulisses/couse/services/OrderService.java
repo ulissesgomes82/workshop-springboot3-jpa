@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ulisses.couse.entities.Order;
 import com.ulisses.couse.repositories.OrderRepository;
+import com.ulisses.couse.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class OrderService {
@@ -21,6 +22,6 @@ public class OrderService {
 
 	public Order findById(Long id) {
 		Optional<Order> order = repository.findById(id);
-		return order.get();
+		return order.orElseThrow(()-> new ResourceNotFoundException(id));
 	}
 }

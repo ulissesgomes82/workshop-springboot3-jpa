@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ulisses.couse.entities.Category;
 import com.ulisses.couse.repositories.CategoryRepository;
+import com.ulisses.couse.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class CategoryService {
@@ -21,6 +22,6 @@ public class CategoryService {
 
 	public Category findById(Long id) {
 		Optional<Category> category = repository.findById(id);
-		return category.get();
+		return category.orElseThrow(()-> new ResourceNotFoundException(id));
 	}
 }

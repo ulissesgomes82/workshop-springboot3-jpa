@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ulisses.couse.entities.Product;
 import com.ulisses.couse.repositories.ProductRepository;
+import com.ulisses.couse.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class ProductService {
@@ -21,6 +22,6 @@ public class ProductService {
 
 	public Product findById(Long id) {
 		Optional<Product> product = repository.findById(id);
-		return product.get();
+		return product.orElseThrow(()-> new ResourceNotFoundException(id));
 	}
 }
